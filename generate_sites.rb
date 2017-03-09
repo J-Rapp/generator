@@ -1,12 +1,3 @@
-# this will first create a new directory
-# it then fires up the data processor
-# it will iterate over each site to be made
-  # generates a new subdirectory for the site
-  # builds the giant html string
-  # creates an index.html from each built string
-  # includes asset files from the template
-# printing out progress along the way
-
 # Needed components pulled from 'require_all' gem
 def require_all(dir)
   files = Dir.glob File.join(dir, '**', '*.rb')
@@ -37,10 +28,24 @@ end
 
 require_all('site_generator')
 
+# this will first create a new 'sites' directory
+
 Dir.mkdir('sites')
+
+# it then fires up the data processor
+
+# it will iterate over each site to be made
+# generates a new subdirectory for the site
+# builds the giant html string
+# creates an index.html from each built string
+# includes asset files from the template
+
 Dir.chdir('sites')
-i = 0
+
+i = 1
 5.times do
   Dir.mkdir(i.to_s)
   i += 1
 end
+
+# printing out progress along the way
