@@ -1,8 +1,7 @@
-# Needed components pulled from 'require_all' gem
+# From the 'require_all' gem
 def require_all(dir)
   files = Dir.glob File.join(dir, '**', '*.rb')
-  files.map! { |fyle| File.expand_path fyle }
-  files.sort!
+  files = files.map { |fyle| File.expand_path fyle }.sort
   loop do
     failed = []
     first_error = nil
@@ -23,29 +22,32 @@ def require_all(dir)
     raise first_error if failed.size == files.size
     files = failed
   end
-  true
+  puts "Successfully loaded #{dir} files"
 end
 
+# 1) Require all files needed to run the script
 require_all('site_generator')
 
-# this will first create a new 'sites' directory
-
+# 2) Create a new 'sites' directory
 Dir.mkdir('sites')
-
-# it then fires up the data processor
-
-# it will iterate over each site to be made
-# generates a new subdirectory for the site
-# builds the giant html string
-# creates an index.html from each built string
-# includes asset files from the template
-
 Dir.chdir('sites')
 
+# 3) Process the data
+# data = DataProcessor.call
+
+# 4) iterate over data
 i = 1
 5.times do
+  # 5) generate a new subdirectory for each site
   Dir.mkdir(i.to_s)
   i += 1
+
+  # 6) build the giant html string for each site
+  # html_string = SingleSiteBuilder.call
+
+  # 7) creates an html file from each string
+
+  # 8) include asset files from the template
 end
 
-# printing out progress along the way
+# throughout each step - print out progress to the console
