@@ -7,7 +7,7 @@
   # includes asset files from the template
 # printing out progress along the way
 
-# From 'require_all' gem
+# Needed components pulled from 'require_all' gem
 def require_all(dir)
   files = Dir.glob File.join(dir, '**', '*.rb')
   files.map! { |fyle| File.expand_path fyle }
@@ -37,4 +37,10 @@ end
 
 require_all('site_generator')
 
-call('files are required')
+Dir.mkdir('sites')
+Dir.chdir('sites')
+i = 0
+5.times do
+  Dir.mkdir(i.to_s)
+  i += 1
+end
