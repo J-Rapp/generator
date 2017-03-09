@@ -1,10 +1,10 @@
-# Setting it up locally
+# Running the script locally
 
 1. Copy/paste your data into the appropriate files in the `/data` directory.
 2. With Ruby installed on your local machine, run `ruby script.rb` from your command line while inside this `/generator` directory.
 3. A `/sites` directory will be created, with subdirectories of every domain inside.
 
-# Overview
+# Logic overview
 
 The `/generate_sites` directory contains a fair attempt at separating the concerns of this program. The `/data_processor` directory first interprets the files in the `/input_data_here` directory. This data (likely to be a single nested data structure) is then iterated over and handed off to the `/single_site_builder` directory where the actual index page HTML string is assembled. The script then neatly assembles a dictory containing a ready-to-host static website with 150 html pages and assets.
 
