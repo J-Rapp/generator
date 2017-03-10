@@ -22,32 +22,31 @@ def require_all(dir)
     raise first_error if failed.size == files.size
     files = failed
   end
-  puts "Successfully loaded #{dir} files"
+  true
 end
 
 # 1) Require all files needed to run the script
 require_all('site_generator')
+puts 'Script load successfully'
 
-# 2) Create a new 'sites' directory
-Dir.mkdir('sites')
-Dir.chdir('sites')
+# # 2) Create a new 'sites' directory
+# Dir.mkdir('sites')
+# Dir.chdir('sites')
 
-# 3) Process the data
-# data = DataProcessor.call
+# # 3) Process the data
+# sites = DataProcessor.call
 
-# 4) iterate over data
-i = 1
-5.times do
-  # 5) generate a new subdirectory for each site
-  Dir.mkdir(i.to_s)
-  i += 1
+# # 4) iterate over data
+# sites.each do |site|
+#   # 5) generate a new subdirectory for each site
+#   Dir.mkdir(site.domain)
 
-  # 6) build the giant html string for each site
-  # html_string = SingleSiteBuilder.call
+#   # 6) build the giant html string for each site keyword
+#   site.keywords.each do |keyword|
+#     html_string = SingleSiteBuilder.call
+#     # 7) creates an html file from each string
+#     # 8) include asset files from the template
+#   end 
+# end
 
-  # 7) creates an html file from each string
-
-  # 8) include asset files from the template
-end
-
-# throughout each step - print out progress to the console
+# # throughout each step - print out progress to the console
