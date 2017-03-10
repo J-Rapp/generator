@@ -1,4 +1,8 @@
-# From the 'require_all' gem
+require 'csv'
+require 'fileutils'
+
+# # 1) Mock 'require_all' gem functionality for nested directories
+
 def require_all(dir)
   files = Dir.glob File.join(dir, '**', '*.rb')
   files = files.map { |fyle| File.expand_path fyle }.sort
@@ -25,28 +29,46 @@ def require_all(dir)
   true
 end
 
-# 1) Require all files needed to run the script
 require_all('site_generator')
-puts 'Script load successfully'
 
-# # 2) Create a new 'sites' directory
-# Dir.mkdir('sites')
-# Dir.chdir('sites')
+puts 'Script loaded successfully'
 
-# # 3) Process the data
-# sites = DataProcessor.call
+# # 2) Process the data
+
+# inputs data file from wherever config.rb declares it's located
+# col_sep: arg is because .tsv files are delimited by tabs
+# quote_char: arg is confirgured to avoid an error if quotes are in the data
+csv = CSV.read(DATA_PATH, headers: true, col_sep: "\t", quote_char: '|')
+
+# returns a large nested data structure for the html_builder
+sites = csv.map do |row|
+  domain = row.to_a
+  Hash[domain.map { |key, value| [key.to_sym, value] }]
+end
+
+puts 'Data ingested successfully'
+
+# # 3) Create and open a new 'sites' directory
+
+# delete 'sites' if it exists already
+FileUtils.rm_r Dir.glob('sites') if Dir.exist?('sites')
+Dir.mkdir('sites')
+Dir.chdir('sites')
+
+puts 'New /sites directory created'
 
 # # 4) iterate over data
-# sites.each do |site|
-#   # 5) generate a new subdirectory for each site
-#   Dir.mkdir(site.domain)
 
-#   # 6) build the giant html string for each site keyword
-#   site.keywords.each do |keyword|
-#     html_string = SingleSiteBuilder.call
-#     # 7) creates an html file from each string
-#     # 8) include asset files from the template
-#   end 
-# end
+sites.each do |site|
+  # # 5) generate a new subdirectory for each site
+  Dir.mkdir(site[:domain])
+
+  # # 6) build the giant html string for each site keyword
+  # site.keywords.each do |keyword|
+  #   html_string = SingleSiteBuilder.call
+  #   # # 7) creates an html file from each string
+  #   # # 8) include asset files from the template
+  # end
+end
 
 # # throughout each step - print out progress to the console
