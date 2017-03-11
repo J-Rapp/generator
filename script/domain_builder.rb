@@ -3,6 +3,8 @@
 # DomainBuilder::Domain.new(domain_data).build on the script
 module DomainBuilder
   def self.call(domain_data)
-    DomainBuilder::Domain.new(domain_data).build
+    domain = DomainBuilder::Domain.new(domain_data)
+    domain.build
+    domain
   end
 end

@@ -19,6 +19,8 @@ module DataProcessor
     def split_delimited_cells(csv)
       csv.map do |domain|
         domain[:keywords] = domain[:keywords].split(',')
+        domain[:videos] = domain[:videos].split(',')
+        domain
       end
     end
   end

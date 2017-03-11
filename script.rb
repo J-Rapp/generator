@@ -28,24 +28,28 @@ FileUtils.rm_r Dir.glob('domains') if Dir.exist?('domains')
 Dir.mkdir('domains')
 Dir.chdir('domains')
 
-puts 'New /domains directory created'
+puts 'New `/domains` directory created'
 
 # # 4) iterate over data
 
 domains.each do |data|
   # # 5) generate a new subdirectory for each domain
   Dir.mkdir(data[:name])
+  Dir.chdir(data[:name])
 
   # # 6) build all the HTML strings for the domain
   domain = DomainBuilder.call(data)
 
   # # 7) creates an html file from each string
   domain.html_file_paths.each do |path|
-    p path
+    html_filename = path + '.html'
+    File.new(html_filename, 'w+')
   end
 
   # # 8) include asset files from the template
   # end
+
+  Dir.chdir('..')
 end
 
 # # throughout each step - print out progress to the console
