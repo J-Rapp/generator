@@ -57,7 +57,7 @@ domains.each do |data|
 
   FileUtils.copy_entry(TEMPLATE_ASSETS, 'assets')
 
-  # progress display
+  # display progress
   counter += 1
   # 'print' required because 'puts' starts a new line
   print "#{counter} of #{domain_count} complete"
