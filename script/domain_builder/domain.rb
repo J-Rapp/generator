@@ -1,6 +1,6 @@
 module DomainBuilder
   class Domain
-    attr_reader :html_files
+    attr_reader :name, :html_files
 
     def initialize(data)
       @name = data[:name]
@@ -20,7 +20,10 @@ module DomainBuilder
 
     def generate_html_files
       @keywords.each do |keyword|
-        @html_files[create_filename(keyword)] = build_html_string(keyword)
+        @html_files[keyword] = {
+          path: create_filename(keyword),
+          html: build_html_string(keyword)
+        }
       end
     end
 
@@ -43,7 +46,7 @@ module DomainBuilder
     end
 
     def build_html_string(keyword)
-      keyword
+      File.read(TEMPLATE)
     end
   end
 end

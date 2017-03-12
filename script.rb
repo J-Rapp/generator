@@ -25,6 +25,7 @@ puts 'Data ingested successfully'
 
 # delete '/domains' if it exists already
 FileUtils.rm_r Dir.glob('domains') if Dir.exist?('domains')
+
 Dir.mkdir('domains')
 Dir.chdir('domains')
 
@@ -36,28 +37,28 @@ counter = 0
 domain_count = domains.count
 
 domains.each do |data|
-  # # 5) generate a new subdirectory for each domain
+  # # 5) generate a new directory (with assets) for each domain
 
-  Dir.mkdir(data[:name])
+  FileUtils.copy_entry(TEMPLATE_ASSETS, data[:name])
   Dir.chdir(data[:name])
 
   # # 6) build all the HTML strings for the domain
 
   domain = DomainBuilder.call(data)
 
-  # # 7) create all .html files
+  # # 7) create all .html files and include them in master .txt file
 
-  domain.html_files.each do |filename, html_string|
-    File.open(filename, 'w+') do |f|
-      f.write html_string
+  master_file = File.open('urls.txt', 'w+')
+
+  domain.html_files.each do |keyword, file_data|
+    File.open(file_data[:path], 'w+') do |f|
+      f.write file_data[:html]
     end
+    master_file.puts "\"#{keyword}\", http://www.#{domain.name}/#{file_data[:path]}"
   end
 
-  # # 8) include asset files from the template
+  # # 8) display progress
 
-  FileUtils.copy_entry(TEMPLATE_ASSETS, 'assets')
-
-  # display progress
   counter += 1
   # 'print' required because 'puts' starts a new line
   print "#{counter} of #{domain_count} complete"
