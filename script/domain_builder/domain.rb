@@ -8,24 +8,28 @@ module DomainBuilder
     end
 
     def build
-      turn_keywords_into_paths
+      turn_keywords_into_filenames
     end
 
     private
 
-    def turn_keywords_into_paths
+    def turn_keywords_into_filenames
       @html_file_paths = @data[:keywords].map do |keyword|
-        # replace spaces with dashes
-        keyword = keyword.downcase.strip.tr(' ', '-')
+        # downcase and remove leading/trailing whitespace
+        keyword = keyword.downcase.strip
 
-        # replace å = aa, ø = oe, æ = ae
+        # remove certain non-english characters
+        keyword = keyword.gsub(/[å]/, 'aa')
+        keyword = keyword.gsub(/[ø]/, 'oe')
+        keyword = keyword.gsub(/[æ]/, 'ae')
 
-        # remove special characters
-        keyword = keyword.gsub(/[^0-9A-Za-z]/, '')
+        # remove special characters and spaces
+        keyword = keyword.gsub(/[^0-9A-Za-z]/, '-')
 
-        # remove if more than 250 characters
+        # cap filename at 250 characters
+        keyword = keyword.slice(0..249)
 
-        keyword
+        keyword + '.html'
       end
     end
   end

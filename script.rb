@@ -14,12 +14,14 @@ require_all('script')
 
 puts 'Script loaded successfully'
 
+
 # # 2) Process the data
 
-# returns an array of nested hashes
+# returns an array of domain hashes
 domains = DataProcessor.call
 
 puts 'Data ingested successfully'
+
 
 # # 3) Create and open a new '/domains' directory
 
@@ -28,28 +30,40 @@ FileUtils.rm_r Dir.glob('domains') if Dir.exist?('domains')
 Dir.mkdir('domains')
 Dir.chdir('domains')
 
-puts 'New `/domains` directory created'
 
 # # 4) iterate over data
 
+puts 'Creating each subdomain in /domains...'
+
+counter = 0
+domain_count = domains.count
+
 domains.each do |data|
   # # 5) generate a new subdirectory for each domain
+
   Dir.mkdir(data[:name])
   Dir.chdir(data[:name])
 
   # # 6) build all the HTML strings for the domain
+
   domain = DomainBuilder.call(data)
 
   # # 7) creates an html file from each string
+
   domain.html_file_paths.each do |path|
-    html_filename = path + '.html'
-    File.new(html_filename, 'w+')
+    File.new(path, 'w')
   end
 
   # # 8) include asset files from the template
-  # end
 
+  # progress display
+  counter += 1
+  # 'print' required because 'puts' starts a new line
+  print "#{counter} out of #{domain_count}"
+  print "\r"
+
+  # return to /domains directory
   Dir.chdir('..')
 end
 
-# # throughout each step - print out progress to the console
+puts 'Script complete'
