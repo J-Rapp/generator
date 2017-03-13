@@ -10,7 +10,12 @@ module DomainBuilder
       @videos = data[:videos]
       @popuptext = data[:popuptext]
       @facebook = data[:facebook]
-      @html_files = {}
+      @html_files = {
+        'index' => {
+          path: 'index.html',
+          html: build_html_string(@keywords.sample)
+        }
+      }
     end
 
     def build
@@ -22,13 +27,13 @@ module DomainBuilder
     def generate_html_files
       @keywords.each do |keyword|
         @html_files[keyword] = {
-          path: create_filename(keyword),
+          path: create_path(keyword),
           html: build_html_string(keyword)
         }
       end
     end
 
-    def create_filename(keyword)
+    def create_path(keyword)
       # downcase and remove leading/trailing whitespace
       keyword = keyword.downcase.strip
 
