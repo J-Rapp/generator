@@ -1,5 +1,5 @@
 module DomainBuilder
-  class SinglePageBuilder
+  class SinglePage
     def initialize(keyword)
       @keyword = keyword
     end
