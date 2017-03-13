@@ -39,7 +39,7 @@ domain_count = domains.count
 domains.each do |data|
   # # 5) generate a new directory (with assets) for each domain
 
-  FileUtils.copy_entry(TEMPLATE_ASSETS, data[:name])
+  FileUtils.copy_entry(TEMPLATE_ASSETS_DIR, data[:name])
   Dir.chdir(data[:name])
 
   # # 6) build all the HTML strings for the domain

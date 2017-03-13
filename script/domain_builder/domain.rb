@@ -46,7 +46,8 @@ module DomainBuilder
     end
 
     def build_html_string(keyword)
-      File.read(TEMPLATE)
+      page = SinglePageBuilder.new(keyword)
+      page.build
     end
   end
 end
