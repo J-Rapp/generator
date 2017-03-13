@@ -1,3 +1,5 @@
+require 'erb'
+
 module DomainBuilder
   class Domain
     attr_reader :name, :html_files
@@ -6,9 +8,8 @@ module DomainBuilder
       @name = data[:name]
       @keywords = data[:keywords]
       @videos = data[:videos]
-      @videos = data[:videos]
+      @popuptext = data[:popuptext]
       @facebook = data[:facebook]
-
       @html_files = {}
     end
 
@@ -46,8 +47,20 @@ module DomainBuilder
     end
 
     def build_html_string(keyword)
-      page = SinglePage.new(keyword)
-      page.build
+      erb_template = File.read(TEMPLATE_PATH)
+      random_keywords = random_five_keywords
+
+      ERB.new(erb_template).result(binding)
+    end
+
+    def random_index
+      Random.rand(0..4)
+    end
+
+    def random_five_keywords
+      rand_keywords = []
+      5.times { rand_keywords << @keywords.sample }
+      rand_keywords
     end
   end
 end
