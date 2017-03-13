@@ -21,7 +21,11 @@ domains = DataProcessor.call
 
 puts 'Data ingested successfully'
 
-# # 3) Create and open a new '/domains' directory
+# # 3) Create the file that will store all urls of every domain
+
+master_file = File.open('urls.txt', 'w+')
+
+# # 4) Create and open a new '/domains' directory
 
 # delete '/domains' if it exists already
 FileUtils.rm_r Dir.glob('domains') if Dir.exist?('domains')
@@ -29,7 +33,7 @@ FileUtils.rm_r Dir.glob('domains') if Dir.exist?('domains')
 Dir.mkdir('domains')
 Dir.chdir('domains')
 
-# # 4) iterate over the domains and build them
+# # 5) iterate over the domains and build them
 
 puts 'Creating each subdomain in /domains...'
 
@@ -37,18 +41,16 @@ counter = 0
 domain_count = domains.count
 
 domains.each do |data|
-  # # 5) generate a new directory (with assets) for each domain
+  # # 6) generate a new directory (with assets) for each domain
 
   FileUtils.copy_entry(TEMPLATE_ASSETS_DIR, data[:name])
   Dir.chdir(data[:name])
 
-  # # 6) build all the HTML strings for the domain
+  # # 7) build all the HTML strings for the domain
 
   domain = DomainBuilder.call(data)
 
-  # # 7) create all .html files and include them in master .txt file
-
-  master_file = File.open('urls.txt', 'w+')
+  # # 8) create all .html files and add them in master .txt file
 
   domain.html_files.each do |keyword, file_data|
     File.open(file_data[:path], 'w+') do |f|
@@ -57,14 +59,15 @@ domains.each do |data|
     master_file.puts "\"#{keyword}\", http://www.#{domain.name}/#{file_data[:path]}"
   end
 
-  # # 8) display progress
+  # # 9) display progress
 
   counter += 1
   # 'print' required because 'puts' starts a new line
   print "#{counter} of #{domain_count} complete"
+  # return cursor to beginning of terminal output line
   print "\r"
 
-  # return to /domains directory
+  # return to /domains directory to create the next domain
   Dir.chdir('..')
 end
 
