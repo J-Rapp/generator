@@ -1,3 +1,8 @@
+
+<!-- erb comments here, or maybe in README since this file might be replaced -->
+<!-- explain variables/methods here are in the Domain class -->
+<!-- explain what the variables are -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,8 +76,8 @@
         <div class="row">
           <div class="intro-text">
             <h1><%= keyword %></h1>
-            <p><%= random_keywords[random_index] + ' / ' + random_keywords[random_index] + ' / ' + random_keywords[random_index]%></p>
-            <a href="#about" class="btn btn-custom btn-lg page-scroll">Discover Story</a> </div>
+            <p><%= second_keyword + ' / ' + third_keyword + ' / ' + fourth_keyword %></p>
+            <a href="#<%= pathify(first_keyword) %>" class="btn btn-custom btn-lg page-scroll"><%= first_keyword %></a> </div>
         </div>
       </div>
     </div>
@@ -84,15 +89,15 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-md-6 ">
-        <div class="about-img"><img src="img/about.jpg" class="img-responsive" alt=""></div>
+        <div class="about-img"><img src="img/about.jpg" class="img-responsive" alt="<%= keyword %>"></div>
       </div>
       <div class="col-xs-12 col-md-6">
         <div class="about-text">
-          <h2>Our Restaurant</h2>
+          <h2><%= first_keyword %> and RaNdOm WoRdS, jumbled</h2>
           <hr>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at. Duis sed dapibus leo nec ornare diam commodo nibh.</p>
-          <h3>Awarded Chefs</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at. Duis sed dapibus leo nec ornare.</p>
+          <p>RaNdOm WoRdS</p>
+          <h3>RaNdOm WoRdS</h3>
+          <p>RaNdOm WoRdS</p>
         </div>
       </div>
     </div>
@@ -103,16 +108,16 @@
 <div id="<%= pathify(second_keyword) %>">
   <div class="section-title text-center center">
     <div class="overlay">
-      <h2>Menu</h2>
+      <h2><%= second_keyword %> plus RaNdOm WoRdS, jumbled</h2>
       <hr>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed.</p>
+      <p>RaNdOm WoRdS</p>
     </div>
   </div>
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-6">
         <div class="menu-section">
-          <h2 class="menu-section-title">Breakfast & Starters</h2>
+          <h2 class="menu-section-title">RaNdOm WoRdS and sections / lists</h2>
           <hr>
           <div class="menu-item">
             <div class="menu-item-name"> Delicious Dish </div>
@@ -138,7 +143,7 @@
       </div>
       <div class="col-xs-12 col-sm-6">
         <div class="menu-section">
-          <h2 class="menu-section-title">Main Course</h2>
+          <h2 class="menu-section-title">RaNdOm WoRdS and sections / lists</h2>
           <hr>
           <div class="menu-item">
             <div class="menu-item-name"> Delicious Dish </div>
@@ -166,7 +171,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-6">
         <div class="menu-section">
-          <h2 class="menu-section-title">Dinner</h2>
+          <h2 class="menu-section-title">RaNdOm WoRdS and sections / lists</h2>
           <hr>
           <div class="menu-item">
             <div class="menu-item-name"> Delicious Dish </div>
@@ -192,7 +197,7 @@
       </div>
       <div class="col-xs-12 col-sm-6">
         <div class="menu-section">
-          <h2 class="menu-section-title">Coffee & Drinks</h2>
+          <h2 class="menu-section-title">RaNdOm WoRdS and sections / lists</h2>
           <hr>
           <div class="menu-item">
             <div class="menu-item-name"> Delicious Dish </div>
@@ -224,9 +229,9 @@
 <div id="<%= pathify(third_keyword) %>">
   <div class="section-title text-center center">
     <div class="overlay">
-      <h2>Gallery</h2>
+      <h2><%= third_keyword %></h2>
       <hr>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed.</p>
+      <p>RaNdOm WoRdS</p>
     </div>
   </div>
   <div class="container">
@@ -235,10 +240,10 @@
         <ul class="cat">
           <li>
             <ol class="type">
-              <li><a href="#" data-filter="*" class="active">All</a></li>
-              <li><a href="#" data-filter=".breakfast">Breakfast</a></li>
-              <li><a href="#" data-filter=".lunch">Lunch</a></li>
-              <li><a href="#" data-filter=".dinner">Dinner</a></li>
+              <li><a href="#" data-filter="*" class="active">Gonna</a></li>
+              <li><a href="#" data-filter=".breakfast">Be</a></li>
+              <li><a href="#" data-filter=".lunch">YouTube</a></li>
+              <li><a href="#" data-filter=".dinner">Videos</a></li>
             </ol>
           </li>
         </ul>
@@ -365,37 +370,13 @@
   <div class="overlay">
     <div class="container">
       <div class="col-md-10 col-md-offset-1 section-title">
-        <h2>Meet Our Chefs</h2>
+        <h2><%= fourth_keyword %></h2>
         <hr>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>
+        <p>RaNdOm WoRdS</p>
       </div>
       <div id="row">
-        <div class="col-md-4 team">
-          <div class="thumbnail">
-            <div class="team-img"><img src="img/team/01.jpg" alt="..."></div>
-            <div class="caption">
-              <h3>Mike Doe</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 team">
-          <div class="thumbnail">
-            <div class="team-img"><img src="img/team/02.jpg" alt="..."></div>
-            <div class="caption">
-              <h3>Chris Doe</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 team">
-          <div class="thumbnail">
-            <div class="team-img"><img src="img/team/03.jpg" alt="..."></div>
-            <div class="caption">
-              <h3>Ethan Doe</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam.</p>
-            </div>
-          </div>
+        <div class="col-md-12 team">
+          <p>RaNdOm WoRdS</p>
         </div>
       </div>
     </div>
@@ -405,7 +386,7 @@
 <!-- Call Reservation Section -->
 <div id="<%= pathify(fifth_keyword) %>" class="text-center">
   <div class="container">
-    <h2>Want to make a reservation? Call <strong>1-887-654-3210</strong></h2>
+    <h2><%= fifth_keyword %></h2>
   </div>
 </div>
 
