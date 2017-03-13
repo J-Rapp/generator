@@ -52,11 +52,11 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#about" class="page-scroll">About</a></li>
-        <li><a href="#restaurant-menu" class="page-scroll">Menu</a></li>
-        <li><a href="#portfolio" class="page-scroll">Gallery</a></li>
-        <li><a href="#team" class="page-scroll">Chefs</a></li>
-        <li><a href="#call-reservation" class="page-scroll">Contact</a></li>
+        <li><a href="#<%= pathify(first_keyword) %>" class="page-scroll"><%= first_keyword %></a></li>
+        <li><a href="#<%= pathify(second_keyword) %>" class="page-scroll"><%= second_keyword %></a></li>
+        <li><a href="#<%= pathify(third_keyword) %>" class="page-scroll"><%= third_keyword %></a></li>
+        <li><a href="#<%= pathify(fourth_keyword) %>" class="page-scroll"><%= fourth_keyword %></a></li>
+        <li><a href="#<%= pathify(fifth_keyword) %>" class="page-scroll"><%= fifth_keyword %></a></li>
       </ul>
     </div>
     <!-- /.navbar-collapse --> 
@@ -80,7 +80,7 @@
 </header>
 
 <!-- About Section -->
-<div id="about">
+<div id="<%= pathify(first_keyword) %>">
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-md-6 ">
@@ -100,7 +100,7 @@
 </div>
 
 <!-- Restaurant Menu Section -->
-<div id="restaurant-menu">
+<div id="<%= pathify(second_keyword) %>">
   <div class="section-title text-center center">
     <div class="overlay">
       <h2>Menu</h2>
@@ -221,7 +221,7 @@
 </div>
 
 <!-- Portfolio Section -->
-<div id="portfolio">
+<div id="<%= pathify(third_keyword) %>">
   <div class="section-title text-center center">
     <div class="overlay">
       <h2>Gallery</h2>
@@ -361,7 +361,7 @@
 </div>
 
 <!-- Team Section -->
-<div id="team" class="text-center">
+<div id="<%= pathify(fourth_keyword) %>" class="text-center">
   <div class="overlay">
     <div class="container">
       <div class="col-md-10 col-md-offset-1 section-title">
@@ -403,7 +403,7 @@
 </div>
 
 <!-- Call Reservation Section -->
-<div id="call-reservation" class="text-center">
+<div id="<%= pathify(fifth_keyword) %>" class="text-center">
   <div class="container">
     <h2>Want to make a reservation? Call <strong>1-887-654-3210</strong></h2>
   </div>

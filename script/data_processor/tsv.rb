@@ -5,7 +5,7 @@ module DataProcessor
     def ingest
       # inputs data file from wherever config.rb declares it's located
       # col_sep: arg is because .tsv files are delimited by tabs
-      # quote_char: arg is confirgured to avoid an error if quotes are in the data
+      # quote_char: arg is configured to avoid errors if quotes are in the data
       csv = CSV.read(DATA_PATH, headers: true, col_sep: "\t", quote_char: '|')
       csv = csv.map do |row|
         domain = row.to_a

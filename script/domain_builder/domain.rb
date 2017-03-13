@@ -27,13 +27,15 @@ module DomainBuilder
     def generate_html_files
       @keywords.each do |keyword|
         @html_files[keyword] = {
-          path: create_path(keyword),
+          path: pathify(keyword) + '.html',
           html: build_html_string(keyword)
         }
       end
     end
 
-    def create_path(keyword)
+    # # Everything below pertains to generating html from the erb template
+
+    def pathify(keyword)
       # downcase and remove leading/trailing whitespace
       keyword = keyword.downcase.strip
 
@@ -48,24 +50,30 @@ module DomainBuilder
       # cap filename at 250 characters
       keyword = keyword.slice(0..249)
 
-      keyword + '.html'
+      keyword
     end
 
     def build_html_string(keyword)
       erb_template = File.read(TEMPLATE_PATH)
       random_keywords = random_five_keywords
+      first_keyword = random_keywords[0]
+      second_keyword = random_keywords[1]
+      third_keyword = random_keywords[2]
+      fourth_keyword = random_keywords[3]
+      fifth_keyword = random_keywords[4]
 
+      # render the html string
       ERB.new(erb_template).result(binding)
+    end
+
+    def random_five_keywords
+      rand_keys = []
+      5.times { rand_keys << @keywords.sample }
+      rand_keys
     end
 
     def random_index
       Random.rand(0..4)
-    end
-
-    def random_five_keywords
-      rand_keywords = []
-      5.times { rand_keywords << @keywords.sample }
-      rand_keywords
     end
   end
 end
