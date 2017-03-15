@@ -18,6 +18,7 @@ module DomainBuilder
 
     def build
       make_index_page
+      # TODO: make_404_page
       generate_html_files
     end
 
@@ -73,9 +74,7 @@ module DomainBuilder
     end
 
     def random_five_keywords
-      rand_keys = []
-      5.times { rand_keys << @keywords.sample }
-      rand_keys
+      @keywords.sample(5)
     end
 
     def pathify(keyword)
@@ -96,39 +95,66 @@ module DomainBuilder
       keyword
     end
 
-    def jumble(keyword)
+    def header(keyword)
       h2 = []
+
+      # insert a random number of words
       rand(2..15).times { h2 << @wordlist.sample }
+
+      # add the keyword
       h2 << keyword.split(' ')
+
+      # mix it all up
       h2 = h2.flatten.shuffle
+
+      # return as a string
       h2.join(' ')
+    end
+
+    def title_ize(keyword)
+      # keyword inserted in a random title
+      @titles.sample.gsub('KEYWORD', keyword)
+    end
+
+    def meta_ize(keyword)
+      # keyword inserted in a random descripton meta tag
+      @metas.sample.gsub('KEYWORD', keyword)
     end
 
     def random_paragraph(keyword)
       paragraph = ''
-      7.times { paragraph += random_sentence(keyword) }
+
+      # 11 sentences per paragraph
+      11.times { paragraph += random_sentence(keyword) }
+
       # TODO: insert random lists
+
       paragraph
     end
 
     def random_sentence(page_keyword)
       sentence = []
+
       # between 1500-2500 total words on the page
       # 84 sentences on the page = 17-29 words per sentence
       rand(17..29).times do
         sentence << @wordlist.sample
       end
+
       normalize(sentence, page_keyword)
     end
 
     def normalize(sentence, page_keyword)
       indices = (2..(sentence.length - 2)).to_a
-      # add random punctuation and keywords/links
+
+      # insert punctuation/keywords/links in middle of sentence
       sentence[indices.sample] += random_punctuation if percent_chance(30)
       sentence.insert(indices.sample, page_keyword) if percent_chance([0.5, 1, 1.5, 2].sample)
       sentence.insert(indices.sample, @keywords.sample) if percent_chance([2, 2.5, 3, 3.5, 4, 4.5, 5].sample)
-      sentence.insert(indices.sample, keyword_link) if percent_chance(8)
-      # TODO: includes links to another domain
+      sentence.insert(indices.sample, keyword_link) if percent_chance(10)
+      
+      # TODO: sentence.insert(indices.sample, outside_link) if percent_chance(10)
+
       sentence.join(' ').capitalize + '. '
     end
 
@@ -136,8 +162,10 @@ module DomainBuilder
       # working with 200 instead of 100 allows for half decimal usage
       likelikood = float * 2
       two_hunnid = (1..200).to_a
-      picks = two_hunnid.sample(likelikood)
-      picks.include?(two_hunnid.sample)
+      random_picks = two_hunnid.sample(likelikood)
+
+      # choose one number, return true or false if it matches previously chosen
+      random_picks.include?(two_hunnid.sample)
     end
 
     def random_punctuation
@@ -147,14 +175,6 @@ module DomainBuilder
     def keyword_link
       keyword = @keywords.sample
       '<a href="' + pathify(keyword) + '.html">' + keyword + '</a> '
-    end
-
-    def title_ize(keyword)
-      @titles.sample.gsub('KEYWORD', keyword)
-    end
-
-    def meta_ize(keyword)
-      @metas.sample.gsub('KEYWORD', keyword)
     end
   end
 end

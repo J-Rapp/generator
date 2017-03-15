@@ -21,7 +21,7 @@ The various assets (CSS, JS, etc) are a bit less complicated, needing only a qui
 <%= fourth_keyword %>
 <%= fifth_keyword %>
 <%= pathify(any_keyword) %>
-<%= jumble(any_keyword) %>
+<%= header(any_keyword) %>
 <%= random_sentence(any_keyword) %>
 <%= random_paragraph(any_keyword) %>
 <%= title_ize(keyword) %>

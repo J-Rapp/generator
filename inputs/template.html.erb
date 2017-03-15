@@ -91,7 +91,7 @@
       </div>
       <div class="col-xs-12 col-md-6">
         <div class="about-text">
-          <h2><%= jumble(first_keyword) %></h2>
+          <h2><%= header(first_keyword) %></h2>
           <hr>
           <p><%= random_paragraph(keyword) %></p>
           <h3><%= random_sentence(keyword) %></h3>
@@ -106,7 +106,7 @@
 <div id="<%= pathify(second_keyword) %>">
   <div class="section-title text-center center">
     <div class="overlay">
-      <h2><%= jumble(second_keyword) %></h2>
+      <h2><%= header(second_keyword) %></h2>
       <hr>
       <p><%= random_sentence(keyword) %></p>
     </div>
@@ -159,7 +159,7 @@
 <div id="<%= pathify(third_keyword) %>">
   <div class="section-title text-center center">
     <div class="overlay">
-      <h2><%= jumble(third_keyword) %></h2>
+      <h2><%= header(third_keyword) %></h2>
       <hr>
       <p><%= random_sentence(keyword) %></p>
     </div>
@@ -170,10 +170,10 @@
         <ul class="cat">
           <li>
             <ol class="type">
-              <li><a href="#" data-filter="*" class="active">Gonna</a></li>
-              <li><a href="#" data-filter=".breakfast">Be</a></li>
-              <li><a href="#" data-filter=".lunch">YouTube</a></li>
-              <li><a href="#" data-filter=".dinner">Videos</a></li>
+              <li><a href="#" data-filter="*" class="active"><%= keyword %></a></li>
+              <li><a href="#" data-filter=".first_vid_group"><%= first_keyword %></a></li>
+              <li><a href="#" data-filter=".second_vid_group"><%= third_keyword %></a></li>
+              <li><a href="#" data-filter=".third_vid_group"><%= fifth_keyword %></a></li>
             </ol>
           </li>
         </ul>
@@ -182,7 +182,7 @@
     </div>
     <div class="row">
       <div class="portfolio-items">
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
+        <div class="col-sm-6 col-md-4 col-lg-4 first_vid_group">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="img/portfolio/01-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -191,7 +191,7 @@
               <img src="img/portfolio/01-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
+        <div class="col-sm-6 col-md-4 col-lg-4 third_vid_group">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="img/portfolio/02-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -200,7 +200,7 @@
               <img src="img/portfolio/02-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
+        <div class="col-sm-6 col-md-4 col-lg-4 first_vid_group">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="img/portfolio/03-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -209,7 +209,7 @@
               <img src="img/portfolio/03-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
+        <div class="col-sm-6 col-md-4 col-lg-4 first_vid_group">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="img/portfolio/04-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -218,7 +218,7 @@
               <img src="img/portfolio/04-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
+        <div class="col-sm-6 col-md-4 col-lg-4 third_vid_group">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="img/portfolio/05-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -227,7 +227,7 @@
               <img src="img/portfolio/05-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 lunch">
+        <div class="col-sm-6 col-md-4 col-lg-4 second_vid_group">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="img/portfolio/06-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -236,7 +236,7 @@
               <img src="img/portfolio/06-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 lunch">
+        <div class="col-sm-6 col-md-4 col-lg-4 second_vid_group">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="img/portfolio/07-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -245,7 +245,7 @@
               <img src="img/portfolio/07-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
+        <div class="col-sm-6 col-md-4 col-lg-4 first_vid_group">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="img/portfolio/08-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -254,7 +254,7 @@
               <img src="img/portfolio/08-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
+        <div class="col-sm-6 col-md-4 col-lg-4 third_vid_group">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="img/portfolio/09-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -263,7 +263,7 @@
               <img src="img/portfolio/09-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 lunch">
+        <div class="col-sm-6 col-md-4 col-lg-4 second_vid_group">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="img/portfolio/10-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -272,7 +272,7 @@
               <img src="img/portfolio/10-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 lunch">
+        <div class="col-sm-6 col-md-4 col-lg-4 second_vid_group">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="img/portfolio/11-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -281,7 +281,7 @@
               <img src="img/portfolio/11-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
+        <div class="col-sm-6 col-md-4 col-lg-4 first_vid_group">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="img/portfolio/12-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
               <div class="hover-text">
@@ -300,7 +300,7 @@
   <div class="overlay">
     <div class="container">
       <div class="col-md-10 col-md-offset-1 section-title">
-        <h2><%= jumble(fourth_keyword) %></h2>
+        <h2><%= header(fourth_keyword) %></h2>
         <hr>
       </div>
       <div id="row">
@@ -315,7 +315,7 @@
 <!-- Call Reservation Section -->
 <div id="<%= pathify(fifth_keyword) %>" class="text-center">
   <div class="container">
-    <h2><%= jumble(fifth_keyword) %></h2>
+    <h2><%= header(fifth_keyword) %></h2>
   </div>
 </div>
 
