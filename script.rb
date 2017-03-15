@@ -33,12 +33,6 @@ puts 'Data ingested successfully.'
 
 
 
-# # 3) Create the file that will store all the urls of every domain
-
-master_file = File.open('urls.txt', 'w+')
-
-
-
 # # 4) Create and open a new '/domains' directory
 
 # delete '/domains' if it exists already
@@ -80,7 +74,12 @@ domains.each do |domain|
     File.open(file_data[:path], 'w+') do |f|
       f.write file_data[:html]
     end
-    master_file.puts "\"#{keyword}\", http://www.#{domain.name}/#{file_data[:path]}"
+
+    # # 3) Append to the file storing all the urls of every domain
+
+    File.open(MASTER_URL_FILE, 'a') do |f|
+      f.puts "#{keyword},http://www.#{domain.name}/#{file_data[:path]}"
+    end
   end
 
 

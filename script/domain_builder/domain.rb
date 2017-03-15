@@ -156,8 +156,7 @@ module DomainBuilder
       sentence.insert(indices.sample, page_keyword) if percent_chance([0.5, 1, 1.5, 2].sample)
       sentence.insert(indices.sample, @keywords.sample) if percent_chance([2, 2.5, 3, 3.5, 4, 4.5, 5].sample)
       sentence.insert(indices.sample, keyword_link) if percent_chance(7)
-
-      # TODO: sentence.insert(indices.sample, outside_link) if percent_chance(10)
+      sentence.insert(indices.sample, outside_link) if percent_chance(2)
 
       sentence.join(' ').capitalize + '. '
     end
@@ -188,6 +187,17 @@ module DomainBuilder
         list += item
       end
       list += '</ul>'
+    end
+
+    def outside_link
+      link = ''
+      # make sure the link is not for the current domain name
+      until !(link =~ /#{@name}/).nil?
+        line = File.readlines(MASTER_URL_FILE).sample.split(',')
+        keyword = line[0].delete('"')
+        link = line[1].strip
+      end
+      '<a href="' + link + '">' + keyword + '</a>'
     end
   end
 end

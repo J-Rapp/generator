@@ -12,8 +12,9 @@
 
 # Switching HTML templates when desired
 
-The various assets (CSS, JS, etc) are a bit less complicated, needing only a quick replace or copy/paste in the `/site_generator/html_template_assets` directory.
+The various assets (CSS, JS, etc) need only a quick replace or copy/paste in the `/site_generator/html_template_assets` directory.
 
+Other methods/objects available for template usage:
 <%= keyword %>
 <%= first_keyword %>
 <%= second_keyword %>
