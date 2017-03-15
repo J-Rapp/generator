@@ -53,6 +53,7 @@ Dir.chdir('domains')
 
 counter = 0
 domain_count = domains.count
+print 'Creating domains...'
 
 domains.each do |domain|
   # # 6) generate a new directory (with assets) for each domain
@@ -78,12 +79,13 @@ domains.each do |domain|
   # # 9) display progress
 
   counter += 1
-  print "#{counter} of #{domain_count} domains complete"
   print "\r"
+  print "#{counter} of #{domain_count} domains complete."
 
 
   # # 10) return to /domains directory to create the next domain
   Dir.chdir('..')
 end
 
-puts 'Script complete. Domains can be found in the /domains directory.'
+puts ''
+puts 'Script complete - /domains created.'
