@@ -122,19 +122,16 @@ module DomainBuilder
     end
 
     def random_video
-      video = @videos.sample
-      video = video.gsub('https', 'http')
-      video = video.gsub('watch?', 'embed/')
-      video
+      @videos.sample.gsub('watch?', 'embed/')
     end
 
     def random_paragraph(keyword)
       paragraph = ''
 
-      # 11 sentences per paragraph
-      11.times { paragraph += random_sentence(keyword) }
-
-      # TODO: insert random lists
+      # 11 sentences per paragraph, some random lists
+      11.times do
+        paragraph += percent_chance(5) ? random_list : random_sentence(keyword)
+      end
 
       paragraph
     end
@@ -182,6 +179,15 @@ module DomainBuilder
     def keyword_link
       keyword = @keywords.sample
       '<a href="' + pathify(keyword) + '.html">' + keyword + '</a> '
+    end
+
+    def random_list
+      list = '<ul>'
+      rand(3..5).times do
+        item = '<li>' + @keywords.sample + '</li>'
+        list += item
+      end
+      list += '</ul>'
     end
   end
 end
