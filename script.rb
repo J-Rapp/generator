@@ -53,20 +53,28 @@ Dir.chdir('domains')
 
 counter = 0
 domain_count = domains.count
-print 'Creating domains...'
+puts 'Creating domains (this may take a while)...'
 
 domains.each do |domain|
-  # # 6) generate a new directory (with assets) for each domain
+  # # 6) display progress
+
+  print "#{counter} of #{domain_count} domains complete."
+  print "\r"
+  counter += 1
+
+
+  # # 7) generate a new directory (with assets) for each domain
 
   FileUtils.copy_entry(TEMPLATE_ASSETS_DIR, domain[:name])
   Dir.chdir(domain[:name])
 
 
-  # # 7) build all the HTML strings for the domain
+  # # 8) build all the HTML strings for the domain
+
   domain = DomainBuilder.call(domain, words)
 
 
-  # # 8) create all .html files and add them in master .txt file
+  # # 9) create all .html files and add them in master .txt file
 
   domain.html_files.each do |keyword, file_data|
     File.open(file_data[:path], 'w+') do |f|
@@ -76,16 +84,9 @@ domains.each do |domain|
   end
 
 
-  # # 9) display progress
-
-  counter += 1
-  print "\r"
-  print "#{counter} of #{domain_count} domains complete."
-
-
   # # 10) return to /domains directory to create the next domain
   Dir.chdir('..')
 end
 
-puts ''
+puts "#{counter} of #{domain_count} domains complete."
 puts 'Script complete - /domains created.'

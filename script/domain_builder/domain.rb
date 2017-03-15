@@ -12,6 +12,8 @@ module DomainBuilder
       @facebook = data[:facebook]
       @html_files = {}
       @wordlist = words
+      @titles = grab_title_templates
+      @metas = grab_meta_templates
     end
 
     def build
@@ -20,6 +22,20 @@ module DomainBuilder
     end
 
     private
+
+    def grab_title_templates
+      file = File.open(TITLES_PATH)
+      titles = []
+      file.each_line { |line| titles << line.strip }
+      titles
+    end
+
+    def grab_meta_templates
+      file = File.open(META_PATH)
+      metas = []
+      file.each_line { |line| metas << line.strip }
+      metas
+    end
 
     def make_index_page
       @html_files['index'] = {
@@ -52,14 +68,14 @@ module DomainBuilder
       ERB.new(erb_template).result(binding)
     end
 
+    def facebook_tag
+      @facebook
+    end
+
     def random_five_keywords
       rand_keys = []
       5.times { rand_keys << @keywords.sample }
       rand_keys
-    end
-
-    def random_index
-      Random.rand(0..4)
     end
 
     def pathify(keyword)
@@ -82,7 +98,7 @@ module DomainBuilder
 
     def jumble(keyword)
       h2 = []
-      Random.rand(2..15).times { h2 << @wordlist.sample }
+      rand(2..15).times { h2 << @wordlist.sample }
       h2 << keyword.split(' ')
       h2 = h2.flatten.shuffle
       h2.join(' ')
@@ -91,45 +107,54 @@ module DomainBuilder
     def random_paragraph(keyword)
       paragraph = ''
       7.times { paragraph += random_sentence(keyword) }
+      # TODO: insert random lists
       paragraph
     end
 
-    def random_sentence(keyword)
-      sentence = ''
+    def random_sentence(page_keyword)
+      sentence = []
       # between 1500-2500 total words on the page
-      # the current template has 7 sentences + 7 paragraphs (11 sentences each)
-      # so at 84 sentences that's 17..29 words per sentence
-      Random.rand(17..29).times do
-        sentence += @wordlist.sample + ' '
-        # add random punctuation
-        sentence.insert(-2, random_punctuation) if percent_chance(2)
-        # includes page keyword
-        sentence.insert(-1, keyword) if percent_chance(2)
-        # includes other keywords
-        sentence.insert(-1, keyword_or_link) if percent_chance([3, 4, 5].sample)
+      # 84 sentences on the page = 17-29 words per sentence
+      rand(17..29).times do
+        sentence << @wordlist.sample
       end
-      # end with a period
-      sentence.insert(-2, '.')
-      sentence.capitalize
+      normalize(sentence, page_keyword)
     end
 
-    def percent_chance(integer)
-      one_hunnid = (1..100).to_a
-      likelihood = one_hunnid.sample(integer)
-      likelihood.include?(one_hunnid.sample)
+    def normalize(sentence, page_keyword)
+      indices = (2..(sentence.length - 2)).to_a
+      # add random punctuation and keywords/links
+      sentence[indices.sample] += random_punctuation if percent_chance(30)
+      sentence.insert(indices.sample, page_keyword) if percent_chance([0.5, 1, 1.5, 2].sample)
+      sentence.insert(indices.sample, @keywords.sample) if percent_chance([2, 2.5, 3, 3.5, 4, 4.5, 5].sample)
+      sentence.insert(indices.sample, keyword_link) if percent_chance(8)
+      # TODO: includes links to another domain
+      sentence.join(' ').capitalize + '. '
+    end
+
+    def percent_chance(float)
+      # working with 200 instead of 100 allows for half decimal usage
+      likelikood = float * 2
+      two_hunnid = (1..200).to_a
+      picks = two_hunnid.sample(likelikood)
+      picks.include?(two_hunnid.sample)
     end
 
     def random_punctuation
       [':', ';', ',', ',', ','].sample
     end
 
-    def keyword_or_link
+    def keyword_link
       keyword = @keywords.sample
-      # page should include 2-8 links to other pages on this domain
-      if percent_chance(5)
-        keyword = '<a href="' + pathify(keyword) + '.html">' + keyword + '</a> '
-      end
-      keyword
+      '<a href="' + pathify(keyword) + '.html">' + keyword + '</a> '
+    end
+
+    def title_ize(keyword)
+      @titles.sample.gsub('KEYWORD', keyword)
+    end
+
+    def meta_ize(keyword)
+      @metas.sample.gsub('KEYWORD', keyword)
     end
   end
 end
