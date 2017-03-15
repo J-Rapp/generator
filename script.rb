@@ -25,7 +25,9 @@ print 'Ingesting data files...'
 print "\r"
 
 # returns an array of domains from the .tsv file rows
-domains = DataProcessor.call
+domains = DataProcessor::Domains.new.ingest
+# returns an array of all words
+words = File.read(WORDLIST_PATH).split
 
 puts 'Data ingested successfully.'
 
@@ -60,8 +62,7 @@ domains.each do |domain|
 
 
   # # 7) build all the HTML strings for the domain
-
-  domain = DomainBuilder.call(domain)
+  domain = DomainBuilder.call(domain, words)
 
 
   # # 8) create all .html files and add them in master .txt file

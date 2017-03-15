@@ -15,3 +15,15 @@
 # Switching HTML templates when desired
 
 (WIP) ... These are where the various HTML swap-outs can be made for a new template, adding, altering, or removing components as needed. The various assets (CSS, JS, etc) are a bit less complicated, needing only a quick replace or copy/paste in the `/site_generator/html_template_assets` directory.
+
+Objects:
+keyword
+first_keyword
+second_keyword
+third_keyword
+fourth_keyword
+fifth_keyword
+
+Methods available:
+pathify
+jumble
