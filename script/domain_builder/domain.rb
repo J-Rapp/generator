@@ -87,5 +87,21 @@ module DomainBuilder
       h2 = h2.flatten.shuffle
       h2.join(' ')
     end
+
+    # between 1500-2500 words total
+    # picked at random from wordlist
+    # includes keyword .5-2% of the time
+    # includes other keywords 2%-5% of the time
+    # includes 1-8 links to other pages on this domain
+
+    def random_sentence
+      'hello '
+    end
+
+    def random_paragraph
+      paragraph = ''
+      5.times { paragraph += random_sentence }
+      paragraph
+    end
   end
 end
