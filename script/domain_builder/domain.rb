@@ -88,27 +88,25 @@ module DomainBuilder
       h2.join(' ')
     end
 
-    
-    # includes other keywords 2%-5% of the time
-    # includes 1-8 links to other pages on this domain
-
-    def random_paragraph
+    def random_paragraph(keyword)
       paragraph = ''
-      7.times { paragraph += random_sentence }
+      7.times { paragraph += random_sentence(keyword) }
       paragraph
     end
 
-    def random_sentence
+    def random_sentence(keyword)
       sentence = ''
       # between 1500-2500 total words on the page
       # the current template has 7 sentences + 7 paragraphs (11 sentences each)
       # so at 84 sentences that's 17..29 words per sentence
       Random.rand(17..29).times do
         sentence += @wordlist.sample + ' '
-        # add a punctuation 3% of the time
+        # add random punctuation
         sentence.insert(-2, random_punctuation) if percent_chance(2)
-        # includes page keyword 1% of the time
-        sentence.insert(-1, keyword_or_link) if percent_chance([1, 2].sample)
+        # includes page keyword
+        sentence.insert(-1, keyword) if percent_chance(2)
+        # includes other keywords
+        sentence.insert(-1, keyword_or_link) if percent_chance([3, 4, 5].sample)
       end
       # end with a period
       sentence.insert(-2, '.')
@@ -127,7 +125,8 @@ module DomainBuilder
 
     def keyword_or_link
       keyword = @keywords.sample
-      if percent_chance(30)
+      # page should include 2-8 links to other pages on this domain
+      if percent_chance(5)
         keyword = '<a href="' + pathify(keyword) + '.html">' + keyword + '</a> '
       end
       keyword
