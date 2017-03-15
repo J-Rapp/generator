@@ -121,6 +121,13 @@ module DomainBuilder
       @metas.sample.gsub('KEYWORD', keyword)
     end
 
+    def random_video
+      video = @videos.sample
+      video = video.gsub('https', 'http')
+      video = video.gsub('watch?', 'embed/')
+      video
+    end
+
     def random_paragraph(keyword)
       paragraph = ''
 
@@ -151,8 +158,8 @@ module DomainBuilder
       sentence[indices.sample] += random_punctuation if percent_chance(30)
       sentence.insert(indices.sample, page_keyword) if percent_chance([0.5, 1, 1.5, 2].sample)
       sentence.insert(indices.sample, @keywords.sample) if percent_chance([2, 2.5, 3, 3.5, 4, 4.5, 5].sample)
-      sentence.insert(indices.sample, keyword_link) if percent_chance(10)
-      
+      sentence.insert(indices.sample, keyword_link) if percent_chance(7)
+
       # TODO: sentence.insert(indices.sample, outside_link) if percent_chance(10)
 
       sentence.join(' ').capitalize + '. '
