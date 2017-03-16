@@ -18,7 +18,7 @@ module DomainBuilder
 
     def build
       make_index_page
-      # TODO: make_404_page
+      # TODO: make_htaccess
       generate_html_files
     end
 
@@ -190,13 +190,18 @@ module DomainBuilder
     end
 
     def outside_link
-      link = ''
-      # make sure the link is not for the current domain name
-      until !(link =~ /#{@name}/).nil?
+      # check if urls.txt is empty, like when creating the first domain
+      return nil if File.readlines(MASTER_URL_FILE).size.zero?
+
+      link = @name
+
+      # keep picking until the link is NOT from the current domain name
+      until (link =~ /#{@name}/).nil?
         line = File.readlines(MASTER_URL_FILE).sample.split(',')
         keyword = line[0].delete('"')
         link = line[1].strip
       end
+
       '<a href="' + link + '">' + keyword + '</a>'
     end
   end

@@ -33,49 +33,51 @@ puts 'Data ingested successfully.'
 
 
 
-# # 4) Create and open a new '/domains' directory
+# # 3) Create '/domains' directory and 'urls.txt'
 
-# delete '/domains' if it exists already
+# delete if they exist already
 FileUtils.rm_r Dir.glob('domains') if Dir.exist?('domains')
+File.delete(MASTER_URL_FILE) if File.exist?(MASTER_URL_FILE)
 
+File.new(MASTER_URL_FILE, 'w+')
 Dir.mkdir('domains')
 Dir.chdir('domains')
 
 
 
-# # 5) iterate over the domains and build them
+# # 4) iterate over the domains and build them
 
 counter = 0
 domain_count = domains.count
 puts 'Creating domains (this may take a while)...'
 
 domains.each do |domain|
-  # # 6) display progress
+  # # 5) display progress
 
   print "#{counter} of #{domain_count} domains complete."
   print "\r"
   counter += 1
 
 
-  # # 7) generate a new directory (with assets) for each domain
+  # # 6) generate a new directory (with assets) for each domain
 
   FileUtils.copy_entry(TEMPLATE_ASSETS_DIR, domain[:name])
   Dir.chdir(domain[:name])
 
 
-  # # 8) build all the HTML strings for the domain
+  # # 7) build all the HTML strings for the domain
 
   domain = DomainBuilder.call(domain, words)
 
 
-  # # 9) create all .html files and add them in master .txt file
+  # # 8) create all .html files and add them in master .txt file
 
   domain.html_files.each do |keyword, file_data|
     File.open(file_data[:path], 'w+') do |f|
       f.write file_data[:html]
     end
 
-    # # 3) Append to the file storing all the urls of every domain
+    # # 9) Append to the file storing all the urls of every domain
 
     File.open(MASTER_URL_FILE, 'a') do |f|
       f.puts "#{keyword},http://www.#{domain.name}/#{file_data[:path]}"
