@@ -85,7 +85,13 @@ domains.each do |domain|
   end
 
 
-  # # 10) return to /domains directory to create the next domain
+  # # 10) add an .htaccess file
+
+  File.open('.htaccess', 'w+') do |f|
+    f.write 'Redirect 301 / ' + '/blog/url-string' # what should this be?
+  end
+
+  # # 11) return to /domains directory to create the next domain
   Dir.chdir('..')
 end
 

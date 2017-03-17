@@ -7,4 +7,4 @@ WORDLIST_PATH = File.expand_path './inputs/wordlist.txt'.freeze
 TEMPLATE_PATH = File.expand_path './inputs/template.html.erb'.freeze
 TEMPLATE_ASSETS_DIR = File.expand_path './inputs/template_assets'.freeze
 MASTER_URL_FILE = File.expand_path './urls.txt'.freeze
-POPUP_TEMPLATE = File.expand_path './script/domain_builder/popup.html.erb'.freeze
+POPUP_TEMPLATE = File.expand_path './script/domain_builder/popup.html.erb'.freeze 

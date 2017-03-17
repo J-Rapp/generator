@@ -18,7 +18,6 @@ module DomainBuilder
 
     def build
       make_index_page
-      # TODO: make_htaccess
       generate_html_files
     end
 
