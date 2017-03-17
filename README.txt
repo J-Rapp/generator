@@ -2,7 +2,13 @@
 
 1. Replace or copy/paste data into the appropriate files in the `/data` directory.
   1. The data file containing rows of domains is currently `.tsv` format (see below).
-  2. The domain data sheet column headers must be `niche`, `name`, `keywords`, `facebook`, `popuptext`, and `videos`, in no particular order.
+  2. The domain data sheet column headers must be (in no particular order):
+    * `niche`
+    * `name`
+    * `keywords`
+    * `facebook`
+    * `popupurl`
+    * `videos`
   3. All cells containing a list/array of values must be demilited by commas.
   4. Any changes to domain data path/naming should be updated in the `config.rb` file so the script knows where to look.
 2. With Ruby installed on your local machine, run `ruby script.rb` from your command line while inside this `/generator` directory.
@@ -28,3 +34,4 @@ Other methods/objects available for template usage:
 <%= title_ize(keyword) %>
 <%= meta_ize(keyword) %>
 <%= facebook_tag %>
+<%= insert_popup %>

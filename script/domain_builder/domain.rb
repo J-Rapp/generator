@@ -8,7 +8,7 @@ module DomainBuilder
       @name = data[:name]
       @keywords = data[:keywords]
       @videos = data[:videos]
-      @popuptext = data[:popuptext]
+      @popup_url = data[:popupurl]
       @facebook = data[:facebook]
       @html_files = {}
       @wordlist = words
@@ -203,6 +203,11 @@ module DomainBuilder
       end
 
       '<a href="' + link + '">' + keyword + '</a>'
+    end
+
+    def insert_popup
+      template = File.read(POPUP_TEMPLATE)
+      ERB.new(template).result(binding)
     end
   end
 end

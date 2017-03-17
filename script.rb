@@ -52,7 +52,7 @@ domain_count = domains.count
 puts 'Creating domains (this may take a while)...'
 
 domains.each do |domain|
-  # # 5) display progress
+  # # 5) display progress along the way
 
   print "#{counter} of #{domain_count} domains complete."
   print "\r"
