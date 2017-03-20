@@ -2,26 +2,43 @@ require 'erb'
 
 module DomainBuilder
   class Domain
-    attr_reader :name, :html_files
+    attr_reader :name, :files
 
-    def initialize(data, words)
-      @name = data[:name]
-      @keywords = data[:keywords]
-      @videos = data[:videos]
-      @popup_url = data[:popupurl]
-      @facebook = data[:facebook]
-      @html_files = {}
-      @wordlist = words
+    def initialize(opts)
+      @name = opts[:data][:name]
+      @keywords = opts[:data][:keywords]
+      @videos = opts[:data][:videos]
+      @popup_url = opts[:data][:popupurl]
+      @facebook = opts[:data][:facebook]
+      @wordlist = opts[:words]
+      @files = {}
       @titles = grab_title_templates
       @metas = grab_meta_templates
     end
 
-    def build
-      make_index_page
+    def filenames
+      generate_only_pathnames
+      rename_first_to_index
+    end
+
+    def html
       generate_html_files
+      rename_first_to_index
     end
 
     private
+
+    def generate_only_pathnames
+      @keywords.each do |keyword|
+        @files[keyword] = {
+          path: pathify(keyword) + '.html'
+        }
+      end
+    end
+
+    def rename_first_to_index
+      @files[@keywords[0]][:path] = 'index.html'
+    end
 
     def grab_title_templates
       file = File.open(TITLES_PATH)
@@ -37,16 +54,9 @@ module DomainBuilder
       metas
     end
 
-    def make_index_page
-      @html_files['index'] = {
-        path: 'index.html',
-        html: build_html_string(@keywords.sample)
-      }
-    end
-
     def generate_html_files
       @keywords.each do |keyword|
-        @html_files[keyword] = {
+        @files[keyword] = {
           path: pathify(keyword) + '.html',
           html: build_html_string(keyword)
         }
@@ -189,16 +199,13 @@ module DomainBuilder
     end
 
     def outside_link
-      # check if urls.txt is empty, like when creating the first domain
-      return nil if File.readlines(MASTER_URL_FILE).size.zero?
-
       link = @name
 
       # keep picking until the link is NOT from the current domain name
       until (link =~ /#{@name}/).nil?
         line = File.readlines(MASTER_URL_FILE).sample.split(',')
-        keyword = line[0].delete('"')
-        link = line[1].strip
+        link = line[0].strip
+        keyword = line[1].delete('"')
       end
 
       '<a href="' + link + '">' + keyword + '</a>'

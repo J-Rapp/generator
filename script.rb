@@ -1,6 +1,5 @@
 require 'fileutils'
 
-
 # # 1) Require all files from the nested /script directory
 
 def require_all(dir)
@@ -45,11 +44,24 @@ Dir.chdir('domains')
 
 
 
-# # 4) iterate over the domains and build them
+# # 4) iterate over the domains, only building the urls.txt file
+
+domains.each do |domain|
+  domain = DomainBuilder.filenames(domain)
+  domain.files.each do |keyword, file_data|
+    File.open(MASTER_URL_FILE, 'a') do |f|
+      f.puts "http://www.#{domain.name}/#{file_data[:path]},#{keyword}"
+    end
+  end
+end
+
+
+
+# # 5) iterate a second time, now building all the html strings
 
 counter = 0
 domain_count = domains.count
-puts 'Creating domains (this may take a while)...'
+puts 'Creating all html pages (this may take a while)...'
 
 domains.each do |domain|
   # # 5) display progress along the way
@@ -67,20 +79,14 @@ domains.each do |domain|
 
   # # 7) build all the HTML strings for the domain
 
-  domain = DomainBuilder.call(domain, words)
+  domain = DomainBuilder.html(domain, words)
 
 
   # # 8) create all .html files and add them in master .txt file
 
-  domain.html_files.each do |keyword, file_data|
+  domain.files.each do |keyword, file_data|
     File.open(file_data[:path], 'w+') do |f|
       f.write file_data[:html]
-    end
-
-    # # 9) Append to the file storing all the urls of every domain
-
-    File.open(MASTER_URL_FILE, 'a') do |f|
-      f.puts "#{keyword},http://www.#{domain.name}/#{file_data[:path]}"
     end
   end
 
