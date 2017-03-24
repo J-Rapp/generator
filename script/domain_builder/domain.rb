@@ -131,7 +131,7 @@ module DomainBuilder
     end
 
     def random_video
-      @videos.sample.gsub('watch?', 'embed/')
+      @videos.sample.gsub('watch?v=', 'embed/')
     end
 
     def random_paragraph(keyword)
