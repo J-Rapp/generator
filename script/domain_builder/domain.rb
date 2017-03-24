@@ -108,7 +108,7 @@ module DomainBuilder
       h2 = []
 
       # insert a random number of words
-      rand(2..15).times { h2 << @wordlist.sample }
+      rand(2..7).times { h2 << @wordlist.sample }
 
       # add the keyword
       h2 << keyword.split(' ')
@@ -150,7 +150,7 @@ module DomainBuilder
 
       # between 1500-2500 total words on the page
       # 84 sentences on the page = 17-29 words per sentence
-      rand(17..29).times do
+      rand(17..27).times do
         sentence << @wordlist.sample
       end
 
@@ -161,13 +161,13 @@ module DomainBuilder
       indices = (2..(sentence.length - 2)).to_a
 
       # insert punctuation/keywords/links in middle of sentence
-      sentence[indices.sample] += random_punctuation if percent_chance(30)
-      sentence.insert(indices.sample, page_keyword) if percent_chance([0.5, 1, 1.5, 2].sample)
-      sentence.insert(indices.sample, @keywords.sample) if percent_chance([2, 2.5, 3, 3.5, 4, 4.5, 5].sample)
+      insert_punctuation(sentence, indices)
+      sentence.insert(indices.sample, page_keyword) if percent_chance([6, 8, 10, 12, 14].sample)
+      sentence.insert(indices.sample, @keywords.sample) if percent_chance([3, 4, 5].sample)
       sentence.insert(indices.sample, keyword_link) if percent_chance(7)
       sentence.insert(indices.sample, outside_link) if percent_chance(2)
 
-      sentence.join(' ').capitalize + '. '
+      sentence.join(' ').capitalize + random_ending_punctuation
     end
 
     def percent_chance(float)
@@ -180,8 +180,18 @@ module DomainBuilder
       random_picks.include?(two_hunnid.sample)
     end
 
+    def insert_punctuation(sentence, indices)
+      rand(0..3).times do
+        sentence[indices.delete(indices.sample)] += random_punctuation
+      end
+    end
+
     def random_punctuation
-      [':', ';', ',', ',', ','].sample
+      [':', ';', ',', ',', ',', ',', ',', ',', ',', ',', ','].sample
+    end
+
+    def random_ending_punctuation
+      percent_chance(10) ? ['! ', '? '].sample : '. '
     end
 
     def keyword_link
